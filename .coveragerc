@@ -18,4 +18,5 @@ omit =
     websauna/utils/orderedset.py
     websauna/tests/*
     websauna/system/http/*
+    websauna/scaffolds/cookiecutter/*
 

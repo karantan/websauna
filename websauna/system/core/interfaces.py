@@ -67,7 +67,7 @@ class IContainer(ILocation):
     TODO: Not sure if items() is the best way to do the child discovery. All ideas accepted.
     """
 
-    def items() -> Iterable[Tuple[str, ILocation]]:
+    def items() -> Iterable[Tuple]:
         """Return children in this container as (id, Resource instance) tuples.
 
         This usually dynamically populates from the database when this is called and there is no caching. The result is iterable only once.

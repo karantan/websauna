@@ -50,6 +50,9 @@ Many glossary descrpitions are taken from `Wikipedia <https://en.wikipedia.org/>
     Colander
         A simple schema-based serialization and deserialization library. Useful for building forms, RESTFul APIs and other interfaces where you need to transform and validate data. `More information <https://pypi.python.org/pypi/colander>`__.
 
+    Cookiecutter
+      Cookiecutter creates projects from project templates, e.g. Python package projects. `More info <https://cookiecutter.readthedocs.io>`__.
+
     colanderalchemy
         A Python package to generate :term:`Colander` forms from :term:`SQLAlchemy` models. `More information <https://pypi.python.org/pypi/ColanderAlchemy>`__.
 
@@ -149,9 +152,6 @@ Many glossary descrpitions are taken from `Wikipedia <https://en.wikipedia.org/>
 
     Paste
       A Python framework for building web applications on the top of `WSGI protocol <https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface>`__. See `Paste documentation <https://pypi.python.org/pypi/Paste>`__ .
-
-    pcreate
-      A command line command for creating new packages based on :term:`Pyramid` framework. `More info <http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/project.html>`__.
 
     persistent
         Something written on a disk e.g. it doesn't disappear when power goes down or the computer is restarted.

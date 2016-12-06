@@ -12,11 +12,15 @@ Enter to your project folder and make sure the :term:`virtual environment` is ac
     cd myproject
     source venv/bin/activate
 
-Websauna uses :term:`Pyramid`'s :term:`pcreate` command and a scaffold mechanism to bootstrap a new project. The `pcreate` command is installed in `venv/bin` folder. To create your application, type::
+Websauna uses :term:`Cookiecutter`'s scaffold mechanism to bootstrap a new project. The `ws-create` command is installed in `venv/bin` folder. To create your application, type::
 
-    pcreate -t websauna_app myapp  # Replace myapp with a creative all lowercase alphanumeric name
+    ws-create -h
 
-This will create a project structure similar to::
+This will show you all the posible options for this command. If you type::
+
+    ws-create --app websauna_app
+
+This will create a project structure similar to (assuming you named your project 'myapp')::
 
     myapp/                          # Python package root
     myapp/myapp                     # Python module "myapp" with all .py files

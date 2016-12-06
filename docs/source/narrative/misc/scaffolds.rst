@@ -4,7 +4,7 @@
 Scaffolds
 =========
 
-There are two different starting points for new Websauna projects. Both are available through :term:`pcreate` command.
+There are two different starting points for new Websauna projects. Both are available through :term:`ws-create` command.
 
 websauna_app
 ------------

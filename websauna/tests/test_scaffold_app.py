@@ -11,6 +11,7 @@ import sys
 
 import pytest
 from flaky import flaky
+from unittest import mock
 
 from .scaffold import execute_venv_command
 from .scaffold import replace_file
@@ -205,7 +206,56 @@ def test_sanity_check(app_scaffold, dev_db):
     execute_venv_command("ws-sync-db myapp/conf/development.ini", app_scaffold, cd_folder="myapp")
     execute_venv_command("ws-sanity-check myapp/conf/development.ini", app_scaffold, cd_folder="myapp", assert_exit=0)
 
+@mock.patch('websauna.system.devop.scripts.cookiecutter.argparse')
+@mock.patch('websauna.system.devop.scripts.cookiecutter.binascii')
+@mock.patch('websauna.system.devop.scripts.cookiecutter.cookiecutter')
+def test_cookiecutter_command(cookiecutter, binascii, argparse):
+    from websauna.system.devop.scripts.cookiecutter import main
 
+    binascii.hexlify().decode.side_effect = [
+        'random 1',
+        'random 2',
+        'random 3',
+    ]
+    args = mock.MagicMock()
+    args.scaffold = 'websauna_app'
+    args.no_input = False
+    parser = mock.MagicMock()
+    parser.parse_args.return_value = args
+    argparse.ArgumentParser.return_value = parser
+
+    main()
+    cookiecutter.assert_called_with(
+        'https://github.com/karantan/websauna-cookiecutter',
+        extra_context={
+            'authentication_random': 'random 1',
+            'authomatic_random': 'random 2',
+            'session_random': 'random 3',
+        },
+        no_input=False,
+    )
+
+
+@mock.patch('websauna.system.devop.scripts.cookiecutter.argparse')
+@mock.patch('websauna.system.devop.scripts.cookiecutter.binascii')
+@mock.patch('websauna.system.devop.scripts.cookiecutter.cookiecutter')
+def test_cookiecutter_command_scaffold_not_exists(cookiecutter, binascii, argparse):
+    from websauna.system.devop.scripts.cookiecutter import main
+
+    binascii.hexlify().decode.side_effect = [
+        'random 1',
+        'random 2',
+        'random 3',
+    ]
+    args = mock.MagicMock()
+    args.scaffold = 'unknown app'
+    args.no_input = False
+    parser = mock.MagicMock()
+    parser.parse_args = args
+    argparse.ArgumentParser().return_value = parser
+
+    main()
+    assert not cookiecutter.called
 
 #: Migration test file
 MODELS_PY="""

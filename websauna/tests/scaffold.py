@@ -1,15 +1,16 @@
 """Scaffold test utility functions."""
+import binascii
 import sys
 import subprocess
 import time
 from contextlib import closing, contextmanager
 import os
-from shutil import which
 from tempfile import mkdtemp
 
 import psycopg2
 import pytest
 
+from cookiecutter.main import cookiecutter
 from websauna.compat.typing import List
 
 
@@ -218,7 +219,21 @@ def app_scaffold(request) -> str:
     execute_venv_command("cd {} ; pip install -e .[notebook,utils]".format(websauna_folder), folder, timeout=5*60)
 
     # Create scaffold
-    execute_venv_command("pcreate --ignore-conflicting-name -s websauna_app myapp", folder)
+    authentication_random = binascii.hexlify(os.urandom(20)).decode("utf-8")
+    authomatic_random = binascii.hexlify(os.urandom(20)).decode("utf-8")
+    session_random = binascii.hexlify(os.urandom(20)).decode("utf-8")
+    cookiecutter(
+        'https://github.com/karantan/websauna-cookiecutter',
+        no_input=True,
+        extra_context={
+            'authentication_random': authentication_random,
+            'authomatic_random': authomatic_random,
+            'session_random': session_random,
+            'project_name': 'myapp',
+            'db_name': 'myapp',
+        },
+        output_dir=folder,
+    )
 
     # Instal package created by scaffold
     content_folder = os.path.join(folder, "myapp")

@@ -5,10 +5,12 @@ Rerunning these tests can be greatly sped up by creating a local Python package 
     bash websauna/tests/create_wheelhouse.bash
 
 """
+import binascii
 import time
 
 import os
 import pytest
+from cookiecutter.main import cookiecutter
 from flaky import flaky
 
 from .scaffold import execute_venv_command, insert_content_after_line
@@ -45,9 +47,22 @@ def addon_scaffold(request, app_scaffold):
 
     folder = app_scaffold
 
-    execute_venv_command("pcreate -s websauna_addon myaddon", folder)
-
-    content_folder = os.path.join(folder, "websauna.myaddon")
+    # Create scaffold
+    authentication_random = binascii.hexlify(os.urandom(20)).decode("utf-8")
+    authomatic_random = binascii.hexlify(os.urandom(20)).decode("utf-8")
+    session_random = binascii.hexlify(os.urandom(20)).decode("utf-8")
+    cookiecutter(
+        'https://github.com/karantan/websauna-cookiecutter-addon',
+        no_input=True,
+        extra_context={
+            'authentication_random': authentication_random,
+            'authomatic_random': authomatic_random,
+            'session_random': session_random,
+            'project_name': 'myaddon',
+            'db_name': 'myaddon',
+        },
+        output_dir=folder,
+    )
 
     # Instal package created by scaffold
     execute_venv_command("cd websauna.myaddon && pip install -e .", folder, timeout=5 * 60)

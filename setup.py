@@ -111,7 +111,10 @@ setup(
 
         # Misc
         "scandir",  # os.scandir backport for py3.4
-        "python-slugify", # ASCII slug generation
+        "python-slugify",  # ASCII slug generation
+
+        # Project scaffolding
+        "cookiecutter>=1.4",
     ],
 
     # List additional groups of  dependencies here (e.g. development
@@ -130,7 +133,7 @@ setup(
             'sphinx-autodoc-typehints',
             'sphinx_rtd_theme',
             'sphinxcontrib-zopeext',
-            'zest.releaser'
+            'zest.releaser',
         ],
 
         'test': [
@@ -178,6 +181,7 @@ setup(
             'ws-create-table=websauna.system.devop.scripts.createtable:main',
             'ws-sanity-check=websauna.system.devop.scripts.sanitycheck:main',
             'ws-collect-static=websauna.system.devop.scripts.collectstatic:main',
+            'ws-create=websauna.system.devop.scripts.cookiecutter:main',
         ],
 
         'paste.app_factory': [
